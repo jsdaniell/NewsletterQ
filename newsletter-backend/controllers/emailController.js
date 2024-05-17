@@ -1,23 +1,36 @@
-import {db} from "../config/firebase.js"
-let emails = [];
+import { db } from "../config/firebase.js"
 
 const EmailController = {
-    getEmails: (req, res) => {
-        const documentsEmails = db.collection('emails').get()
+    getEmails: async (req, res) => {
+        const documentsSnap = db.collection('emails').get()
 
         const docResult = []
 
-        documentsEmails.forEach(doc => {
-            docResult.push(doc.data())
-        })
+        await documentsSnap.then((snapshot) => {
+            snapshot.forEach((doc) => {
+                docResult.push(doc.data())
+            })
 
-        res.json(docResult)
-        return
+            res.json(docResult)
+            return
+        })
     },
-    registerEmail: (req, res) => {
-        const { email } = req.body;
-        emails.push(email);
-        res.json(emails);
+    registerEmail: async (req, res) => {
+        const { email, name } = req.body;
+
+        if(!name || !email) {
+            res.status(400)
+            res.json({ message: 'Preencha todos os campos!' })
+            return
+        }
+
+        await db.collection('emails').add({
+            email,
+            name
+        }).then(() => {
+            res.json({ message: 'Email e nome cadastrado com sucesso!' })
+            return
+        })
     }
 }
 

@@ -1,5 +1,8 @@
 import admin from 'firebase-admin';
 
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
 let serviceAccount = require("../firebasekey.json");
 
 admin.initializeApp({
