@@ -1,36 +1,38 @@
-import { db } from "../config/firebase.js"
+import { getEmails, insertEmail } from '../repository/emailRepository.js'
 
 const EmailController = {
     getEmails: async (req, res) => {
-        // const documentsSnap = db.collection('emails').get()
+        try {
+            const result = getEmails()
 
-        // const docResult = []
-
-        // await documentsSnap.then((snapshot) => {
-        //     snapshot.forEach((doc) => {
-        //         docResult.push(doc.data())
-        //     })
-
-        //     res.json(docResult)
-        //     return
-        // })
+            res.json(result.rows)
+            return
+        } catch (error) {
+            res.status(500)
+            res.json({ message: 'Erro ao buscar emails' })
+            return
+        }
     },
     registerEmail: async (req, res) => {
         const { email, name } = req.body;
 
-        if(!name || !email) {
+        if (!name || !email) {
             res.status(400)
             res.json({ message: 'Preencha todos os campos!' })
             return
         }
 
-        await db.collection('emails').add({
-            email,
-            name
-        }).then(() => {
-            res.json({ message: 'Email e nome cadastrado com sucesso!' })
+        try {
+            await insertEmail(name, email)
+
+            res.status(201)
+            res.json({ message: 'Email cadastrado com sucesso!' })
             return
-        })
+        } catch (error) {
+            res.status(500)
+            res.json({ message: 'Erro ao cadastrar email' })
+            return
+        }
     }
 }
 
