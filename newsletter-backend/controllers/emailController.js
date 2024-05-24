@@ -2,18 +2,18 @@ import { db } from "../config/firebase.js"
 
 const EmailController = {
     getEmails: async (req, res) => {
-        const documentsSnap = db.collection('emails').get()
+        // const documentsSnap = db.collection('emails').get()
 
-        const docResult = []
+        // const docResult = []
 
-        await documentsSnap.then((snapshot) => {
-            snapshot.forEach((doc) => {
-                docResult.push(doc.data())
-            })
+        // await documentsSnap.then((snapshot) => {
+        //     snapshot.forEach((doc) => {
+        //         docResult.push(doc.data())
+        //     })
 
-            res.json(docResult)
-            return
-        })
+        //     res.json(docResult)
+        //     return
+        // })
     },
     registerEmail: async (req, res) => {
         const { email, name } = req.body;
