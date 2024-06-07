@@ -9,13 +9,13 @@ export default function Home() {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
 
-  function onSubmit() {
+  async function onSubmit() {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
 
     try {
-      const r = fetch('http://localhost:3001/email/register-email-on-newsletter', {
+      const r =  await fetch('http://localhost:3001/email/register-email', {
       method: 'POST',
       headers: myHeaders,
       body: JSON.stringify({

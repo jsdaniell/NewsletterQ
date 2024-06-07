@@ -1,13 +1,19 @@
-import dbPostgres from '../config/postgres.js'
+import { db } from '../config/firebase.js'
 
-export async function insertEmail(name, email){
-    const r = await dbPostgres.query('INSERT INTO emails (name, email) VALUES ($1, $2)', [name, email])
-
-    return r
+export async function insertEmail(name, email) {
+    await db.collection('emails').add({
+        name: name,
+        email: email
+    })
 }
 
-export async function getEmails(){
-    const r = await dbPostgres.query('SELECT * FROM emails')
+export async function getEmails() {
+    let emails = []
+    let snapshot = await db.collection('emails').get()
 
-    return r
+    for await (let doc of snapshot.docs) {
+       emails.push(doc.data())
+    }
+    
+    return emails
 }

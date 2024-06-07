@@ -3,9 +3,10 @@ import { getEmails, insertEmail } from '../repository/emailRepository.js'
 const EmailController = {
     getEmails: async (req, res) => {
         try {
-            const result = getEmails()
+            const result = await getEmails()
 
-            res.json(result.rows)
+            res.status(200)
+            res.json(result)
             return
         } catch (error) {
             res.status(500)
@@ -23,6 +24,17 @@ const EmailController = {
         }
 
         try {
+            const existentEmails = await getEmails()
+
+            const emailAlreadyExists = existentEmails.find((existentEmail) => existentEmail.email === email)
+
+            if (emailAlreadyExists) {
+                res.status(400)
+                res.json({ message: 'Email já cadastrado!' })
+                return
+            }
+
+
             await insertEmail(name, email)
 
             res.status(201)
