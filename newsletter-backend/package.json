@@ -16,6 +16,7 @@
   "dependencies": {
     "express": "^4.19.2",
     "firebase-admin": "^12.1.0",
-    "pg": "^8.11.5"
+    "pg": "^8.11.5",
+    "resend": "^3.2.0"
   }
 }
