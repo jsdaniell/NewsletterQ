@@ -3,7 +3,7 @@ import moment from "moment-timezone";
 import { Resend } from "resend";
 
 
-cron.schedule('45 16 * * *', async () => {
+cron.schedule('00 12 * * *', async () => {
     try {
         const saoPauloTime = moment.tz('America/Sao_Paulo').format('YYYY-MM-DD HH:mm:ss');
 
