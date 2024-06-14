@@ -1,7 +1,6 @@
 
 import Image from "next/image";
 import 'react-toastify/dist/ReactToastify.css';
-import { toast, ToastContainer } from "react-toastify";
 import FormEmail from "@/components/FormEmail";
 
 export default function Home() {
@@ -9,7 +8,6 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
-      <ToastContainer />
       <div className="h-[28rem] p-5 w-2/3 bg-cyan-600 rounded-lg flex">
         <div className="relative flex justify-center items-center bg-indigo-500 flex-[2] min-h-full rounded">
           <Image src="https://cdn-icons-png.flaticon.com/512/4939/4939994.png

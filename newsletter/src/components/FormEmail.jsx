@@ -1,5 +1,6 @@
 "use client"
 import { useState } from 'react'
+import { toast, ToastContainer } from "react-toastify";
 
 export default function FormEmail() {
     const [email, setEmail] = useState('')
@@ -20,7 +21,7 @@ export default function FormEmail() {
                 }),
             })
 
-            if (r.status !== 200) {
+            if (r.status !== 200 && r.status !== 201) {
                 throw new Error('Erro ao se inscrever, tente novamente mais tarde!')
             }
 
@@ -34,6 +35,7 @@ export default function FormEmail() {
     }
 
     return <>
+        <ToastContainer />
         <input value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Digite seu nome" className="w-full p-2 rounded text-black" />
         <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Digite seu email" className="w-full p-2 rounded text-black" />
         <button onClick={onSubmit} className="bg-indigo-500 p-4 rounded min-w-full">Inscrever</button>
