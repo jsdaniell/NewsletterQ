@@ -1,4 +1,4 @@
-import validateToken from "../repository/authRepository.js"
+import {validateToken} from "../repository/authRepository.js"
 
 async function authMiddleware(req, res, next) {
     const { authorization } = req.headers

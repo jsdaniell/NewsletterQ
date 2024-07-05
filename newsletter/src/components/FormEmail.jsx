@@ -10,7 +10,6 @@ export default function FormEmail() {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-
         try {
             const r = await fetch('http://localhost:3001/email/register-email', {
                 method: 'POST',
